@@ -20,19 +20,19 @@ commandFiles.forEach((file) => {
 });
 
 client.once('ready', () => {
-  logger.info('Wildcard Discord bot is now running.');
+  logger.info('Wildcard Discord bot has finished getting ready is now running live.');
 });
 
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) {
-    logger.error('Command %s is not a valid command', interaction.command);
+    logger.error(`Command ${interaction.command} is not a valid command`);
     return;
   }
 
   const command = client.commands.get(interaction.commandName);
 
   if (!command) {
-    logger.error('Command %s is not a valid command', command);
+    logger.error(`Command ${command} is not a valid command`);
     return;
   }
 
