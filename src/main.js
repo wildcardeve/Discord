@@ -42,7 +42,7 @@ client.on('interactionCreate', async (interaction) => {
   } catch (error) {
     logger.error(`There was an error executing command: '${interaction.commandName}' by user: '${interaction.user.username}' in channel: '${interaction.channel.name}'`);
     logger.error(error);
-    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+    await interaction.reply({ content: error.toString(), ephemeral: true });
   }
 });
 
