@@ -1,0 +1,36 @@
+{
+  "name": "discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "npm run deploy-commands && node src/main.js",
+    "deploy-commands": "node src/utils/deployCommands.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wildcardeve/Discord.git"
+  },
+  "keywords": [],
+  "author": "Wildcard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wildcardeve/Discord/issues"
+  },
+  "homepage": "https://github.com/wildcardeve/Discord#readme",
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.11.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "axios": "^0.24.0",
+    "discord-api-types": "^0.26.0",
+    "discord.js": "^13.5.0",
+    "dotenv": "^10.0.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  }
+}
