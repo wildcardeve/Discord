@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const logger = require('../utils/logger');
 
 const options = [
   'It is certain.',
@@ -25,6 +26,7 @@ module.exports = {
   async execute(interaction) {
     // eslint-disable-next-line no-underscore-dangle
     const { value } = interaction.options._hoistedOptions[0];
+    logger.info(`Processing question "${value}" for an answer`);
     await interaction.reply(`Question Asked: ${value}\nAnswer: ${options[Math.floor(Math.random() * options.length)]}`);
   },
 };
