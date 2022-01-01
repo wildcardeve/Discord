@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { DateTime } = require('luxon');
+const logger = require('../utils/logger');
 
 const embeddedResponse = new MessageEmbed()
   .setColor('#32BF84')
@@ -23,6 +24,8 @@ module.exports = {
     .setName('time')
     .setDescription('Displays the current EVE time and a variety of timezones.'),
   async execute(interaction) {
+    logger.info('Generating time message.');
     await interaction.reply({ embeds: [embeddedResponse] });
+    logger.info('Completed time message.');
   },
 };
