@@ -15,7 +15,7 @@ module.exports = {
         { name: 'China: ', value: DateTime.now().setZone('HongKong').toFormat('HH:mm'), inline: true },
         { name: 'Germany: ', value: DateTime.now().setZone('Europe/Berlin').toFormat('HH:mm'), inline: true },
         { name: 'US East: ', value: DateTime.now().setZone('America/New_York').toFormat('HH:mm'), inline: true },
-        { name: 'US Central: ', value: DateTime.now().setZone('America/Denver').toFormat('HH:mm'), inline: true },
+        { name: 'US Central: ', value: DateTime.now().setZone('America/Chicago').toFormat('HH:mm'), inline: true },
         { name: 'US West: ', value: DateTime.now().setZone('America/Los_Angeles').toFormat('HH:mm'), inline: true },
       )
       .setTimestamp()
