@@ -2,6 +2,8 @@
 This is a small nodejs package that provides some features for the Wildcard Discord server via slash commands.
 ## Installation
 
+Note: NodeJS 16+ is required.
+
 ```bash
 git clone https://github.com/wildcardeve/Discord.git
 cd Discord
