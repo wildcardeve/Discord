@@ -40,9 +40,6 @@ module.exports = {
     .setName('ship')
     .setDescription('Choose a ship to fly.'),
   async execute(interaction) {
-    // eslint-disable-next-line no-underscore-dangle
-    const { value } = interaction.options._hoistedOptions[0];
-    logger.info(`Processing question "${value}" for an answer`);
     await interaction.reply(`You should fly: ${options[Math.floor(Math.random() * options.length)]}`);
   },
 };
