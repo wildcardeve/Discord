@@ -38,8 +38,7 @@ const options = [
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ship')
-    .setDescription('Choose a ship to fly.')
-    .addStringOption((option) => option.setRequired(true).setName('question').setDescription('This command will pick a ship for you to fly at random.')),
+    .setDescription('Choose a ship to fly.'),
   async execute(interaction) {
     // eslint-disable-next-line no-underscore-dangle
     const { value } = interaction.options._hoistedOptions[0];
