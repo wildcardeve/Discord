@@ -1,29 +1,33 @@
+/* eslint-disable no-undef */
 /* eslint-disable global-require */
-/* eslint-disable import/no-dynamic-require */
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../', '.env') });
-const { Client, Collection, Intents } = require('discord.js');
-const fs = require('fs');
-const logger = require('./utils/logger');
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../", ".env") });
+const { Client, Collection, Intents } = require("discord.js");
+const fs = require("fs");
+const logger = require("./utils/logger");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-logger.info('Wildcard Discord bot is starting.');
+logger.info("Wildcard Discord bot is starting.");
 
 client.commands = new Collection();
 
-const commandFiles = fs.readdirSync(path.join(__dirname, './commands')).filter((file) => file.endsWith('.js'));
+const commandFiles = fs
+  .readdirSync(path.join(__dirname, "./commands"))
+  .filter((file) => file.endsWith(".js"));
 
 commandFiles.forEach((file) => {
   logger.info(`Registering file: ${file} as a slash command.`);
-  const command = require(path.join(__dirname, 'commands', file));
+  const command = require(path.join(__dirname, "commands", file));
   client.commands.set(command.data.name, command);
 });
 
-client.once('ready', () => {
-  logger.info('Wildcard Discord bot has finished getting ready is now running live.');
+client.once("ready", () => {
+  logger.info(
+    "Wildcard Discord bot has finished getting ready is now running live."
+  );
 });
 
-client.on('interactionCreate', async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) {
     logger.error(`Command ${interaction.command} is not a valid command`);
     return;
@@ -37,10 +41,14 @@ client.on('interactionCreate', async (interaction) => {
   }
 
   try {
-    logger.info(`User: '${interaction.user.username}' is executing command: '${interaction.commandName}' in channel: '${interaction.channel.name}'`);
+    logger.info(
+      `User: '${interaction.user.username}' is executing command: '${interaction.commandName}' in channel: '${interaction.channel.name}'`
+    );
     await command.execute(interaction);
   } catch (error) {
-    logger.error(`There was an error executing command: '${interaction.commandName}' by user: '${interaction.user.username}' in channel: '${interaction.channel.name}'`);
+    logger.error(
+      `There was an error executing command: '${interaction.commandName}' by user: '${interaction.user.username}' in channel: '${interaction.channel.name}'`
+    );
     logger.error(error);
     await interaction.reply({ content: error.toString(), ephemeral: true });
   }

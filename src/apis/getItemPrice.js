@@ -1,22 +1,31 @@
-const { get } = require('axios');
-const addCommasToPrice = require('../utils/addCommasToPrice');
-const logger = require('../utils/logger');
+const { get } = require("axios");
+const addCommasToPrice = require("../utils/addCommasToPrice");
+const logger = require("../utils/logger");
 
 const getItemPrice = async (itemId) => {
-  logger.info(`Finding item price info for item id: ${itemId.id} from EVE Marketer.`);
+  logger.info(
+    `Finding item price info for item id: ${itemId.id} from EVE Marketer.`
+  );
 
-  const jitaPriceRequest = await get(`https://api.evemarketer.com/ec/marketstat/json?typeid=${itemId.id}&usesystem=30000142`);
+  const priceRequest = await get(
+    `https://evetycoon.com/api/v1/market/orders/${itemId.id}`
+  );
 
-  const amarrPriceRequest = await get(`https://api.evemarketer.com/ec/marketstat/json?typeid=${itemId.id}&usesystem=30002187`);
+  const priceResponse = await priceRequest.data;
+  const jitaSellOrders = [];
 
-  logger.info(`Found price data for ${itemId.name} in Jita and Amarr`);
+  for (let i = 0; i < priceResponse.orders.length; i++) {
+    const priceObject = priceResponse.orders[i];
+    if (priceObject.systemId === 30000142 && !priceObject.isBuyOrder) {
+      jitaSellOrders.push(priceObject);
+    }
+  }
+
+  jitaSellOrders.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
 
   return {
-    jitaSell: addCommasToPrice(jitaPriceRequest?.data[0].sell.min),
-    jitaBuy: addCommasToPrice(jitaPriceRequest?.data[0].buy.max),
-    amarrSell: addCommasToPrice(amarrPriceRequest?.data[0].sell.min),
-    amarrBuy: addCommasToPrice(amarrPriceRequest?.data[0].buy.max),
-    itemName: itemId.name,
+    jitaSell: addCommasToPrice(jitaSellOrders[0]?.price),
+    itemName: priceResponse?.itemType?.typeName,
   };
 };
 

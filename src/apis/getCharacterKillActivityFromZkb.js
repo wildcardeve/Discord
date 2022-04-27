@@ -1,10 +1,12 @@
-const { get } = require('axios');
-const logger = require('../utils/logger');
+const { get } = require("axios");
+const logger = require("../utils/logger");
 
 const getCharacterKillActivityFromZkb = async (characterId, characterName) => {
   logger.info(`Finding kill activity details for: ${characterName} from CCP.`);
 
-  const request = await get(`https://zkillboard.com/api/stats/characterID/${characterId}/`);
+  const request = await get(
+    `https://zkillboard.com/api/stats/characterID/${characterId}/`
+  );
 
   const { shipsLost, shipsDestroyed, soloKills } = request.data;
 
@@ -16,7 +18,11 @@ const getCharacterKillActivityFromZkb = async (characterId, characterName) => {
     killboardLink: `https://zkillboard.com/character/${characterId}/`,
   };
 
-  logger.info(`Found kill activity for ${characterName}. ${JSON.stringify(activityResponseObject)}`);
+  logger.info(
+    `Found kill activity for ${characterName}. ${JSON.stringify(
+      activityResponseObject
+    )}`
+  );
 
   return activityResponseObject;
 };

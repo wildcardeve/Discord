@@ -1,13 +1,13 @@
-const axios = require('axios');
-const logger = require('../utils/logger');
+const axios = require("axios");
+const logger = require("../utils/logger");
 
 const getItemIdFromName = async (item) => {
   logger.info(`Getting item id for ${item}`);
   const requestBody = [item];
 
   const request = await axios({
-    method: 'post',
-    url: 'https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en',
+    method: "post",
+    url: "https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en",
     headers: {},
     data: requestBody,
   });
@@ -15,7 +15,11 @@ const getItemIdFromName = async (item) => {
   const response = request?.data;
 
   if (Object.keys(response).length === 0 || response.inventory_types == null) {
-    logger.error(`Item was not found, or is not an inventory type: ${JSON.stringify(response)}`);
+    logger.error(
+      `Item was not found, or is not an inventory type: ${JSON.stringify(
+        response
+      )}`
+    );
     throw new Error(`No results for item ${item}, please check spelling.`);
   }
 
