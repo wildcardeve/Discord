@@ -1,9 +1,8 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const logger = require("../utils/logger");
 
 module.exports = {
 
-    command: new SlashCommandBuilder()
+    data: new SlashCommandBuilder()
         .setName('apply')
         .setDescription('Makes a room for the potential applicant. (requires recruiter permissions')
         .addUserOption(option => option.setName('user').setDescription('The user').setRequired(true)),
@@ -49,4 +48,4 @@ module.exports = {
             message.newChan.send(`https://wildcardeve.com/`)
         )
     }
-}
+};
