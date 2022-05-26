@@ -24,8 +24,9 @@ module.exports = {
         ];
 
         await interaction(
-            guildRef.channels.permissionOverwrites.create(
+            interaction.guild.channels.create(
                 `${user}-applicant-meeting`, {
+                    type: 'text',
                     category: "RECRUITMENT",
                     permissionOverwrites: [{
                             id: guildRef,
