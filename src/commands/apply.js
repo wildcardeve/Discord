@@ -29,10 +29,12 @@ module.exports = {
                         allow: [basePermissions]
                     }]
                 }
-            ).then(channel => channel.send(`
+            ).then(
+                channel => channel.send(`
             \nPlease apply on our website!\n
             Ping @here when you are ready to have your application reviewed.\n
-            https://wildcardeve.com/`)),
+            https://wildcardeve.com/`)
+            )
         );
     },
 };
