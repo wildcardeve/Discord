@@ -25,14 +25,22 @@ module.exports = {
                 `${user.username}-applicant-meeting`, {
                     parent: '767531267641180180',
                     permissionOverwrites: [{
-                        id: user,
-                        allow: [basePermissions]
-                    }]
+                            id: "737695395794256023",
+                            deny: [basePermissions]
+                        },
+                        {
+                            id: user,
+                            allow: [basePermissions]
+                        },
+                        {
+                            id: "737696484866392165",
+                            allow: [basePermissions, Permissions.FLAGS.MANAGE_CHANNELS]
+                        }
+                    ]
                 }
             ).then(
                 channel => channel.send(`
-            \nPlease apply on our website!\n
-            Ping @here when you are ready to have your application reviewed.\n
+            Please apply on our website! Ping here when you are ready to have your application reviewed.\n
             https://wildcardeve.com/`)
             )
         );
