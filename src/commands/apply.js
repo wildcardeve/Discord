@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
+const { Permissions } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,14 +12,25 @@ module.exports = {
         ),
     async execute(interaction) {
         const user = interaction.options.getUser('user');
+        const basePermissions = [
+            Permissions.FLAGS.VIEW_CHANNEL,
+            Permissions.FLAGS.SEND_MESSAGES,
+            Permissions.FLAGS.ADD_REACTIONS,
+            Permissions.FLAGS.READ_MESSAGE_HISTORY,
+            Permissions.FLAGS.EMBED_LINKS,
+        ];
 
         await interaction(
             interaction.guild.channels.create(
                 `${user.username}-applicant-meeting`, {
                     parent: '767531267641180180',
+                    permissionOverwrites: [{
+                        id: user,
+                        allow: [basePermissions]
+                    }]
                 }
-            ).then(channel => channel.send(`\n
-            Please apply on our website!\n
+            ).then(channel => channel.send(`
+            \nPlease apply on our website!\n
             Ping @here when you are ready to have your application reviewed.\n
             https://wildcardeve.com/`)),
         );
