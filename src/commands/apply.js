@@ -11,10 +11,10 @@ module.exports = {
             option.setName("user").setDescription("The user").setRequired(true)
         ),
     async execute(interaction) {
-        const user = interaction.options._hoistedOptions[0];
+        const user = interaction.options.getUser('user');
+        const everyone = "737695395794256023"
         const recruiter = "737696484866392165";
         const command = "752710795623923812";
-        const guildRef = interaction.guild_id;
         const basePermissions = [
             Permissions.FLAGS.VIEW_CHANNEL,
             Permissions.FLAGS.SEND_MESSAGES,
@@ -25,31 +25,28 @@ module.exports = {
 
         await interaction(
             interaction.guild.channels.create(
-                `${user}-applicant-meeting`, {
-                    type: 'text',
-                    category: "RECRUITMENT",
+                `${user.username}-applicant-meeting`, {
                     permissionOverwrites: [{
-                            id: guildRef,
-                            deny: [Permissions.FLAGS.VIEW_CHANNEL],
+                            id: everyone,
+                            deny: [Permissions.FLAGS.VIEW_CHANNEL]
                         },
                         {
-                            id: user.id,
-                            allow: basePermissions,
+                            id: user,
+                            allow: [basePermissions, Permissions.FLAGS.VIEW_CHANNEL]
                         },
                         {
                             id: recruiter,
-                            allow: [...basePermissions, Permissions.FLAGS.MANAGE_CHANNEL],
+                            allow: [basePermissions, Permissions.FLAGS.VIEW_CHANNEL]
                         },
                         {
                             id: command,
-                            allow: [...basePermissions, Permissions.FLAGS.MANAGE_CHANNEL],
+                            allow: [basePermissions, Permissions.FLAGS.VIEW_CHANNEL]
                         },
-                    ],
+                    ]
                 }
-            ),
-            interaction.message.cache
-            .get(`${user}-applicant-meeting`)
-            .send(`https://wildcardeve.com/`)
+            ).then(channel => channel.send(`Please apply on our website!\n
+            Ping @here when you are ready to have your application reviewed.\n
+            https://wildcardeve.com/`)),
         );
     },
 };
