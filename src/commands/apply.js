@@ -20,7 +20,7 @@ module.exports = {
             Permissions.FLAGS.EMBED_LINKS,
         ];
 
-        await interaction(
+        await interaction.execute(
             interaction.guild.channels.create(
                 `${user.username}-applicant-meeting`, {
                     parent: '767531267641180180',
